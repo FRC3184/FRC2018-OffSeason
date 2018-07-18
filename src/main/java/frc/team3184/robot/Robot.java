@@ -1,10 +1,20 @@
 package frc.team3184.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.team3184.robot.commands.TeleopDrive;
+import frc.team3184.robot.subsystems.DriveSystem;
 
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot {
+    private DriveSystem drive;
+    private TeleopDrive teleopDrive;
+
     @Override
-    public void robotInit() { }
+    public void robotInit() {
+        Scheduler.getInstance().enable();
+        drive = new DriveSystem();
+    }
 
     @Override
     public void disabledInit() { }
@@ -13,23 +23,32 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() { }
 
     @Override
-    public void teleopInit() { }
+    public void teleopInit() {
+        teleopDrive = new TeleopDrive(drive);
+
+        teleopDrive.start();
+    }
 
     @Override
     public void testInit() { }
 
-
     @Override
-    public void disabledPeriodic() { }
+    public void disabledPeriodic() {
+        Scheduler.getInstance().run();
+    }
     
     @Override
-    public void autonomousPeriodic() { }
-
-    @Override
-    public void teleopPeriodic() {
-        System.out.println("Hello GradleRIO");
+    public void autonomousPeriodic() {
+        Scheduler.getInstance().run();
     }
 
     @Override
-    public void testPeriodic() { }
+    public void teleopPeriodic() {
+        Scheduler.getInstance().run();
+    }
+
+    @Override
+    public void testPeriodic() {
+        Scheduler.getInstance().run();
+    }
 }
