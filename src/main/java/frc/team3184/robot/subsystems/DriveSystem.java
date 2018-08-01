@@ -22,8 +22,8 @@ public class DriveSystem extends Subsystem {
     public DriveSystem () {
         leftMaster = new WPI_TalonSRX(0);
         rightMaster = new WPI_TalonSRX(1);
-        leftSlave = new VictorSPX(2);
-        rightSlave = new VictorSPX(3);
+        leftSlave = new VictorSPX(0);
+        rightSlave = new VictorSPX(1);
         robotDrive = new DifferentialDrive(leftMaster, rightMaster);
 
         leftSlave.follow(leftMaster);
